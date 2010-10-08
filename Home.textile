@@ -1,3 +1,0 @@
-This is a forked repository. Have a look at
-        "tucu00's oozie1 wiki":/tucu00/oozie1
-        for more information.
