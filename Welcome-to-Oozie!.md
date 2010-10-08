@@ -15,3 +15,7 @@ Oozie has two sub-components:
  * [[Oozie Workflow Use Cases|OozieWfUseCases]]
  * [[Oozie Coordinator Use Cases|OozieCoordUseCases]]
  * [[Oozie FAQ|OozieFAQ]]
+
+## FAQ
+ * [[How to prepare a release|How to prepare a release]]
+
