@@ -12,8 +12,8 @@ Oozie has two sub-components:
 ## Documentation
 
  * [[Oozie Docs|http://yahoo.github.com/oozie/]]
- * [[Oozie Workflow Use Cases|OozieWfUseCases]]
- * [[Oozie Coordinator Use Cases|OozieCoordUseCases]]
+ * [[Oozie Workflow Use Cases|Oozie WF Use Cases]]
+ * [[Oozie Coordinator Use Cases|Oozie Coord Use Cases]]
  
 
 ## FAQ
