@@ -1,0 +1,1 @@
+* subscribe to the developer mailing list
