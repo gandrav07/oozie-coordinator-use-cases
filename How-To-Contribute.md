@@ -9,7 +9,6 @@ Most likely than not, your interest in contributing to Oozie comes from the need
 1. subscribing yourself to the [oozie-users](http://groups.yahoo.com/group/Oozie-users/join) mailing list and make 
     sure you get all the feeds for Oozie from the GitHub
 2. browsing through the list of open issues that we've got
-3. reading through our 
 
 ### How to contribute
 
