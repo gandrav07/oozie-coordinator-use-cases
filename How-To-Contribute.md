@@ -12,7 +12,7 @@ Most likely than not, your interest in contributing to Oozie comes from the need
 
 ### How to contribute
 
-You're still convinced that Oozie needs to be modified in order to handle your problem. And you even have an idea on how to do that, well here's how to turn that idea into a commit (or two) in 9 easy steps:
+You're still convinced that Oozie needs to be modified in order to handle your problem. And you even have an idea on how to do that, well here's how to turn that idea into a commit (or two) in 8 easy steps:
 
 1. Before you can have fun with code, we really need you (or the company you work for) to sign our [Yahoo! Open Source contributor license agreement](http://yahoo.github.com/oozie/Contribution%20License%20Agreement%20Yahoo.pdf). This is the only boring step -- we promise. ;-) 
 2. Start with [creating an issue](http://github.com/yahoo/oozie/issues) clearly describing:
