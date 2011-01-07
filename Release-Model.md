@@ -9,9 +9,9 @@ We are following a date-driven release model with quarterly releases aligned, ro
     * Release manager: Alejandro Abdelnur
     * [Features tagged for a release](http://github.com/yahoo/oozie/issues/labels/oozie-2.3)
 
-* 04/01/2011: "April Fools' Release"
+* 04/01/2011: "Bundle/Tech dept Release"
     * Version: 3.0
-    * Release manager: Roman Shaposhnik
+    * Release manager: Mohammad Islam
     * [Features tagged for a release](http://github.com/yahoo/oozie/issues/labels/oozie-3.0)
 
 
