@@ -1,46 +1,5 @@
 # What is a Bundle?
 Bundle is a higher-level oozie abstraction that will batch a set of coordinator applications. The user will be able to start/stop/suspend/resume/rerun in the bundle level resulting a better control.
-%TWISTY{showlink="Expand -- Full Workflow XML",hidelink="Close"}%
-<blockquote>
-<verbatim>
-       
-       <workflow-app xmlns='uri:oozie:workflow:0.1' name='pig-noinputdir-wf'>
-
-          <Authentications>
-                <Authentication name=howlauth type=howl>
-                       <property>    
-                           <name>URI</name>
-                           <value>$Server_name</value>
-                       </property>
-                       <property>
-                           <name>Principal</name>
-                           <value>$Principal</value>
-                       </property>
-                </Authentication>  
-                <Authentication name=gycaauth type=gyca>
-                       <property>    
-                           <name>URI</name>
-                           <value>$Server_name</value>
-                       </property>
-                       <property>
-                           <name>Principal</name>
-                           <value>$Principal</value>
-                       </property>
-                </Authentication>  
-          </Authentications>  
-          <action name='pig' authentication=howl,gyca>
-             <configuration>
-                 <property>
-                    <name>TESTING</name>
-                    <value>${start}</value>
-                 </property>
-             </configuration>
-         </action>
-       </workflow-app>
-
-</verbatim>
-</blockquote>
-%ENDTWISTY{}%
 
 # High-level Bundle requirements
 1. This feature will allow user to specify a list of coordinator applications in XML file format.
@@ -172,6 +131,7 @@ This table will contain the information associated with coordinator jobs associa
 ## Operations
 
 ### Bundle Submission
+When a bundle submission request will reach to oozie
 
 ### Bundle Start
 
