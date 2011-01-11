@@ -97,20 +97,32 @@ There will be two new tables:
 
 ### Bundle Table
 This table will contain the information related to a specific bundle.  The table structure would minimally contains the following:
+
 * Bundle ID
+
 * Bundle Status
+
 * Bundle kick-off/start time
+
 * Pending
+
 * Bundle Creation time
+
 * Last modified time
 
 ##Bundle Actions
 This table will contain the information associated with coordinator jobs associate with each bundle.
+
 * Bundle Action ID
+
 * Coordinator name 
+
 * Coordinator ID
+
 * Coordinator Status
+
 * Pending
+
 * Last modified time
 
 
