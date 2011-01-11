@@ -48,8 +48,8 @@ Bundle is a higher-level oozie abstraction that will batch a set of coordinator 
 
 ## XML interface
 User will specify a bundle through XML. The following XSD file defines the format of the XML file.
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bundle="uri:oozie:bundle:0.1"
-           elementFormDefault="qualified" targetNamespace="uri:oozie:bundle:0.1">
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bundle="uri:oozie:bundle:0.1" elementFormDefault="qualified" targetNamespace="uri:oozie:bundle:0.1">
 
     <xs:element name="bundle-app" type="bundle:BUNDLE-APP"/>
     <xs:simpleType name="IDENTIFIER">
@@ -93,6 +93,26 @@ User will specify a bundle through XML. The following XSD file defines the forma
 </xs:schema>
 
 ## DB Tables
+There will be two new tables:
+
+### Bundle Table
+This table will contain the information related to a specific bundle.  The table structure would minimally contains the following:
+* Bundle ID
+* Bundle Status
+* Bundle kick-off/start time
+* Pending
+* Bundle Creation time
+* Last modified time
+
+##Bundle Actions
+This table will contain the information associated with coordinator jobs associate with each bundle.
+* Bundle Action ID
+* Coordinator name 
+* Coordinator ID
+* Coordinator Status
+* Pending
+* Last modified time
+
 
 ## State Transition
 
@@ -110,7 +130,7 @@ User will specify a bundle through XML. The following XSD file defines the forma
 
 ### Bundle Pause/Unpause
 
-###
+### Bundle Rerun
 
 
  
