@@ -46,5 +46,71 @@ Bundle is a higher-level oozie abstraction that will batch a set of coordinator 
 
 # High-level Design
 
+## XML interface
+User will specify a bundle through XML. The following XSD file defines the format of the XML file.
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:bundle="uri:oozie:bundle:0.1"
+           elementFormDefault="qualified" targetNamespace="uri:oozie:bundle:0.1">
+
+    <xs:element name="bundle-app" type="bundle:BUNDLE-APP"/>
+    <xs:simpleType name="IDENTIFIER">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="([a-zA-Z]([\-_a-zA-Z0-9])*){1,39})"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="BUNDLE-APP">
+        <xs:sequence>
+            <xs:element name="controls" type="bundle:CONTROLS" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="coordinator" type="bundle:COORDINATOR" minOccurs="1" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="bundle:IDENTIFIER" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="CONTROLS">
+        <xs:sequence minOccurs="0" maxOccurs="1">
+            <xs:element name="kick-off-time" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="COORDINATOR">
+        <xs:sequence  minOccurs="1" maxOccurs="1">
+            <xs:element name="app-path" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="configuration" type="bundle:CONFIGURATION" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="bundle:IDENTIFIER" use="required"/>
+        <xs:attribute name="critical" type="xs:string" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="CONFIGURATION">
+        <xs:sequence>
+            <xs:element name="property" minOccurs="1" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="name" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                        <xs:element name="value" minOccurs="1" maxOccurs="1" type="xs:string"/>
+                        <xs:element name="description" minOccurs="0" maxOccurs="1" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
+
+## DB Tables
+
+## State Transition
+
+## Operations
+
+### Bundle Submission
+
+### Bundle Start
+
+### Bundle Kill
+
+### Bundle Suspend
+
+### Bundle Resume
+
+### Bundle Pause/Unpause
+
+###
+
 
  
