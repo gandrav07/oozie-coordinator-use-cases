@@ -129,12 +129,18 @@ This table will contain the information associated with coordinator jobs associa
 
 ## State Transition
 
-**         Transition		
+**         Transition	
+	
 From	            To	                           Trigger	                                             Action
+
 =============================================================**
+
 Start	                 Prep	                user SUBMIT
+
 Prep	                 Running	               User START               	            SUBMIT children (START Bundle)
+
 Prep	                 Running	               Kick off time reaches	            SUBMIT children (START Bundle)	
+
 Prep	                 PrepPaused	       Pause time reaches	
 
 		START	
