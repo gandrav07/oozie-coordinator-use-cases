@@ -1,4 +1,4 @@
-# What is a Bundle?
+# Introduction
 Bundle is a higher-level oozie abstraction that will batch a set of coordinator applications. The user will be able to start/stop/suspend/resume/rerun in the bundle level resulting a better control.
 
 # High-level Bundle requirements
@@ -126,8 +126,37 @@ This table will contain the information associated with coordinator jobs associa
 * Last modified time
 
 
+
 ## State Transition
 
+**         Transition		
+From	            To	                           Trigger	                                             Action
+=============================================================**
+Start	                 Prep	                user SUBMIT
+Prep	                 Running	               User START               	            SUBMIT children (START Bundle)
+Prep	                 Running	               Kick off time reaches	            SUBMIT children (START Bundle)	
+Prep	                 PrepPaused	       Pause time reaches	
+
+		START	
+Prep	PrepSuspended	SUSPEND	
+PrepPaused	Prep	RESET_PAUSE_TIME	
+PrepSuspended	Prep	RESUME	
+Running	Suspended	SUSPEND	SUSPEND children
+Running	Paused	Pause time	PAUSE children
+Paused	Running	RESET_PAUSE_TIME	
+Paused	Suspended	SUSPEND	SUSPEND children
+Suspended	Running	RESUME	RESUME children
+Running	Failed	If SUBMIT critical child fails	KILL children
+Running	RunningWithErrors	If SUBMIT non-critical child fails	
+RunningWithErrors	Failed	If SUBMIT critical child fails	KILL children
+RunningWithErrors	DoneWithErrors	All children terminated	
+RunningWithErrors	SuspendedError	SUSPEND	SUSPEND children
+RunningWithErrors	PausedError	Pause time	PAUSE children
+PausedError	RunningWithErrors	RESET_PAUSE_TIME	
+PausedError	SuspendedError	SUSPEND	SUSPEND children
+SuspendedError	RunningWithErrors	RESUME	RESUME children
+Running	Succeeded	All children terminated	
+*	Killed	KILL	KILL children
 ## Operations
 
 ### Bundle Submission
