@@ -128,10 +128,10 @@ This table will contain the information associated with coordinator jobs associa
 
 
 ## State Transition
-
+`
 **         Transition	
 	
-From	            To	                           Trigger	                                             Action
+From	····            To	                           Trigger	                                             Action
 
 =============================================================**
 
@@ -162,7 +162,7 @@ PausedError	RunningWithErrors	RESET_PAUSE_TIME
 PausedError	SuspendedError	SUSPEND	SUSPEND children
 SuspendedError	RunningWithErrors	RESUME	RESUME children
 Running	Succeeded	All children terminated	
-*	Killed	KILL	KILL children
+*	Killed	KILL	KILL children`
 ## Operations
 
 ### Bundle Submission
