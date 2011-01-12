@@ -128,7 +128,7 @@ This table will contain the information associated with coordinator jobs associa
 
 
 ## State Transition
-`
+`[[/path/to/image.png]]
 **         Transition	
 	
 From	····            To	                           Trigger	                                             Action
