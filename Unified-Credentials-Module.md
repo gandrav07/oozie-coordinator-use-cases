@@ -37,3 +37,8 @@ In this approach user will provide configuration for each workflow for all the n
 #### shortcomings
 
 Shortcoming to this approach is every action has to authenticate itself but as of now there is no other way we can avoid that because of Token expiration problem perhaps one workflow may now authenticate many times with the same service, and that puts load on the auth service. There could be a de-authentication step after the action finishes in the future, if this turns out to be a problem.
+
+#### assumptions
+
+We have one assumption in this approach which is to pass the delegation tokens in the job conf. Without jobconf this approach will not work. However we use jobconf for passing the Namenode and Jobtracker token . So without jobconf we need to thoughtrough that design as well. For now its safe to assume we will have job conf.
+
