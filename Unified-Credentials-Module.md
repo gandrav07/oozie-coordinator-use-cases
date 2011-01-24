@@ -94,3 +94,27 @@ If User wants to plugin the new Authentication module for their needs, they have
         </value>
     </property>
 </verbatim>
+
+##### Sample Insert Token class implementation
+<verbatim>
+public class InsertTestToken extends Credentials{
+    public InsertTestToken() {
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.oozie.action.hadoop.Credentials#addtoJobConf(org.apache.hadoop.mapred.JobConf, org.apache.oozie.action.hadoop.CredentialsProperties, org.apache.oozie.action.ActionExecutor.Context)
+     */
+    @Override
+    public void addtoJobConf(JobConf jobconf, CredentialsProperties props, Context context) throws Exception {
+        try {
+            Token<DelegationTokenIdentifier> abctoken = new Token<DelegationTokenIdentifier>();
+            jobconf.getCredentials().addToken(new Text("ABC Token"), abctoken);
+            XLog.getLog(getClass()).debug("Added the ABC token in job conf");
+        }
+        catch (Exception e) {
+            XLog.getLog(getClass()).warn("Exception in addtoJobConf", e);
+            throw e;
+        }
+    }
+}
+</verbatim>
