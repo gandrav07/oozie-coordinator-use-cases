@@ -42,3 +42,51 @@ Shortcoming to this approach is every action has to authenticate itself but as o
 
 We have one assumption in this approach which is to pass the delegation tokens in the job conf. Without jobconf this approach will not work. However we use jobconf for passing the Namenode and Jobtracker token . So without jobconf we need to thoughtrough that design as well. For now its safe to assume we will have job conf.
 
+#### Design
+
+There are certain components which will need the changes for this requirement to satisfy which are as follows:
+
+##### User Interface
+
+User has to add following configuration to their workflow.xml. Please find below work flow xml for the reference.
+%TWISTY{showlink="Expand -- Full Workflow XML",hidelink="Close"}%
+<blockquote>
+<verbatim>
+       
+       <workflow-app xmlns='uri:oozie:workflow:0.1' name='pig-noinputdir-wf'>
+
+          <Authentications>
+                <Authentication name=ABCNAME type=ABC>
+                       <property>    
+                           <name>URI</name>
+                           <value>$Server_name</value>
+                       </property>
+                       <property>
+                           <name>Principal</name>
+                           <value>$Principal</value>
+                       </property>
+                </Authentication>  
+                <Authentication name=XYZNAME type=XYZ>
+                       <property>    
+                           <name>URI</name>
+                           <value>$Server_name</value>
+                       </property>
+                       <property>
+                           <name>Principal</name>
+                           <value>$Principal</value>
+                       </property>
+                </Authentication>  
+          </Authentications>  
+          <action name='pig' authentication=ABCNAME,XYZNAME>
+             <configuration>
+                 <property>
+                    <name>TESTING</name>
+                    <value>${start}</value>
+                 </property>
+             </configuration>
+         </action>
+       </workflow-app>
+
+</verbatim>
+</blockquote>
+%ENDTWISTY{}%
