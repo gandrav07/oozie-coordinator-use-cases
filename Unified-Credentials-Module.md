@@ -97,6 +97,7 @@ If User wants to plugin the new Authentication module for their needs, they have
 
 ##### Sample Insert Token class implementation
 <verbatim>
+
 public class InsertTestToken extends Credentials{
     public InsertTestToken() {
     }
@@ -116,5 +117,6 @@ public class InsertTestToken extends Credentials{
             throw e;
         }
     }
-}
+  }
+
 </verbatim>
