@@ -49,8 +49,7 @@ There are certain components which will need the changes for this requirement to
 ##### User Interface
 
 User has to add following configuration to their workflow.xml. Please find below work flow xml for the reference.
-%TWISTY{showlink="Expand -- Full Workflow XML",hidelink="Close"}%
-<blockquote>
+
 <verbatim>
        
        <workflow-app xmlns='uri:oozie:workflow:0.1' name='pig-noinputdir-wf'>
@@ -88,5 +87,3 @@ User has to add following configuration to their workflow.xml. Please find below
        </workflow-app>
 
 </verbatim>
-</blockquote>
-%ENDTWISTY{}%
