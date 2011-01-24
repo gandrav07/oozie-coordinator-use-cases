@@ -42,11 +42,7 @@ Shortcoming to this approach is every action has to authenticate itself but as o
 
 We have one assumption in this approach which is to pass the delegation tokens in the job conf. Without jobconf this approach will not work. However we use jobconf for passing the Namenode and Jobtracker token . So without jobconf we need to thoughtrough that design as well. For now its safe to assume we will have job conf.
 
-#### Design
-
-There are certain components which will need the changes for this requirement to satisfy which are as follows:
-
-##### User Interface
+#### User Interface Changes
 
 User has to add following configuration to their workflow.xml. Please find below work flow xml for the reference.
 
@@ -86,4 +82,15 @@ User has to add following configuration to their workflow.xml. Please find below
          </action>
        </workflow-app>
 
+</verbatim>
+
+##### Changes in oozie-default.xml
+If User wants to plugin the new Authentication module for their needs, they have to specify that in oozie-default.xml under the following property
+<verbatim>
+    <property>
+        <name>oozie.credentials.credentialclasses</name>
+        <value>
+            ABC=oorg.apache.oozie.action.hadoop.InsertTestToken
+        </value>
+    </property>
 </verbatim>
