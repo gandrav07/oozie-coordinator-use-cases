@@ -20,3 +20,10 @@ Following section will discuss about their pros and cons and why we chosen the s
 
 In this option Oozie would have introduced multiple authentication actions and User will be using those actions ahead of their workflows to first get all the necessary credentials and pass those credentials to all the underneath actions in the workflows.
 For an Example if user wants to use M/R actions and Pig Actions using ABC system then they first need to add ABC Action ahead of MR and Pig Actions and then oozie server will run ABC action on the gateway(oozie server) and provide all the necessary credentials to following actions. 
+
+#### shortcomings
+
+This is a nice approach however there are couple of shortcomings with this approach those are as follows.
+
+   * In this approach, there would only be one delegation token for all the actions in the workflow however if workflows have long running actions then that token have potential problem for expiration and then all the subsequent actions will be failed due to authentication reason. The one solution to this approach is to add more time out which is a static number and will be configured at the workflow level (if interface is exposed from underneath system if not then cant be done this way). which will add more load to the underneath authenticator servers in case of short running actions.
+   * There is another overhead of running one extra action per workflow.
