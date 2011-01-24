@@ -1,4 +1,4 @@
-# Design Proposal: Unified Credentials Module for Oozie
+# Unified Credentials Module for Oozie
 
 
 ## Background
