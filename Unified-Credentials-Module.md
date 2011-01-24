@@ -1,6 +1,5 @@
 # Unified Credentials Module for Oozie
 
-
 ## Background
 
 Oozie is a workflow/scheduling solution for pure Grid processing needs to support the different job types exist in a Grid environment (M/R, PIG, Streaming, HDFS, etc.). This scheduling system is data aware, extensible, scalable and light weight. As Oozie is envisioned as a geteway for the grid for all the batch processing needs, it has to be aware of all other data processing systems which is getting used or will be used in the future for these purposes.
@@ -15,6 +14,9 @@ We have couple of options for implementation those are as follows:
    * Introduce separate actions ahead of all workflow applications which need specific authentication.
    * Oozie will get credentials for user based on configuration in each action.
 
+Following section will discuss about their pros and cons and why we chosen the second option:
+
 ### Separate Actions for Authentication
 
-In this option Oozie will introduce multiple authentication actions and User will be using those actions ahead of their workflows to first get all the necessary credentials and pass those credentials to all the underneath actions in the workflows.
+In this option Oozie would have introduced multiple authentication actions and User will be using those actions ahead of their workflows to first get all the necessary credentials and pass those credentials to all the underneath actions in the workflows.
+For an Example if user wants to use M/R actions and Pig Actions using ABC system then they first need to add ABC Action ahead of MR and Pig Actions and then oozie server will run ABC action on the gateway(oozie server) and provide all the necessary credentials to following actions. 
