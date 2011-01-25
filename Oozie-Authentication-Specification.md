@@ -16,15 +16,11 @@ Oozie Authentication provides a framework to let developer provide a custom impl
 
 The server side authentication module has a AuthenticationProviderFactory which needs to be initialized with the required AuthenticationProviders from a configuration file. The authentication is handled by the AuthenticationProcessingFilter. Once a request is received the following happens in the filter:
 
-   * Request is checked for presence of Hadoop-HTTP-Auth cookie. If present the signature is verified and 
-      the username is extracted from the cookie.
-   * If the cookie is not present or is invalid, a supported provider is fetched from the AuthenticationProviderFactory
-      passing in the Request. If there is no supported provider a 401 is sent with the header "WWW-Authenticate: Negotiate"
-   * If a supported provider is found, the authentication is delegated to the supported provider. On successful authentication
-      the provider returns an instance of AuthenticationToken which contains the authenticated user.
-   * An UGI object is constructed out of the authenticated user and set as the request attribute "authorized.ugi" which 
-
-      can be later consumed by the servlets. 
+   * Request is checked for presence of Hadoop-HTTP-Auth cookie. If present the signature is verified and the username is extracted from the cookie.
+   * If the cookie is not present or is invalid, a supported provider is fetched from the AuthenticationProviderFactory passing in the Request. If there is no supported provider a 401 is sent with the header "WWW-Authenticate: Negotiate"
+   * If a supported provider is found, the authentication is delegated to the supported provider. On successful 
+authentication, the provider returns an instance of AuthenticationToken which contains the authenticated user.
+   * An UGI object is constructed out of the authenticated user and set as the request attribute "authorized.ugi" which can be later consumed by the servlets. 
 
 ### 3. Server Authentication Implementation
 
