@@ -12,14 +12,9 @@ The goal of this document is to provide developer a tutorial of how to write you
 
 ### 2. Oozie Authentication Introduction
 
-Oozie Authentication provides a framework to let developer provide a custom implementation to authenticate the requests from Oozie client. The
-client side authentication code is used to send the authentication information as a header in the HTTP request sent to the server. It can be used
-to send different kinds of authentication tokens or certificates. After a successful authentication using one of the configured methods, it
-sends Hadoop-HTTP-Auth cookie in further requests.
+Oozie Authentication provides a framework to let developer provide a custom implementation to authenticate the requests from Oozie client. The client side authentication code is used to send the authentication information as a header in the HTTP request sent to the server. It can be used to send different kinds of authentication tokens or certificates. After a successful authentication using one of the configured methods, it sends Hadoop-HTTP-Auth cookie in further requests.
 
-The server side authentication module has a AuthenticationProviderFactory which needs to be initialized with the required
-AuthenticationProviders from a configuration file. The authentication is handled by the AuthenticationProcessingFilter. Once a request is
-received the following happens in the filter:
+The server side authentication module has a AuthenticationProviderFactory which needs to be initialized with the required AuthenticationProviders from a configuration file. The authentication is handled by the AuthenticationProcessingFilter. Once a request is received the following happens in the filter:
 
    * Request is checked for presence of Hadoop-HTTP-Auth cookie. If present the signature is verified and 
       the username is extracted from the cookie.
@@ -37,15 +32,18 @@ To write a new custom authentication, two classes have to be provided with overr
 
 **1. Provider:** three methods are required to implement.    
     * supports(): the method checks if its authentication mechanism supports the authentication information a request provided.
-    * getAuthenticationToken(): the method is called after supports() returns true and used to constructs the token from parameters in a request. 
+
+    * getAuthenticationToken(): the method is called after supports() returns true and used to constructs the token from parameters in a request.
+
     * authenticate(): the method is used to validate a token created above and rewrite it with new information if needed.
 
 **2. Token:** the instance contains the information for a authentication provider to use.
 
 For example,
 
-SimpleAuthenticationHeadProvider implments the AuthenticationProvider to check if client has send a parameter (username) in the request
-SimpleAuthenticationToken extends AbstractAuthenticationToken to set the authentication flag to true and save client parameter in a instance of Token.
+_SimpleAuthenticationHeadProvider_ implments the AuthenticationProvider to check if client has send a parameter (username) in the request.
+
+_SimpleAuthenticationToken_ extends AbstractAuthenticationToken to set the authentication flag to true and save client parameter in a instance of Token.
 
 ### 4. Client Authentication Implementation
 
