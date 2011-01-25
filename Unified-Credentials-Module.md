@@ -6,6 +6,9 @@ Oozie is a workflow/scheduling solution for pure Grid processing needs to suppor
 
 As Secure Hadoop is being used for the data processing then all components which had been built on hadoop will be using the same/different model for security needs and has its own security model to authenticate users. Now all the jobs are going through Oozie for hadoop and for these systems then Oozie should be having one unique interface and same/different implementation for these credentials modules by that Oozie will authenticate users with all those systems and run job seamlessly. 
 
+Lets take an Example, User has a system lets call it ABC, which he wants to use for running his job. Now it has same policy like hadoop for delegation token for running job or that system just provide certificates for running that job. So user should have way to plugin their system's credentials policy in Oozie in order to run those jobs.
+
+This module facilitates users to provide credentials for any other systems user may want to use for running their jobs through Oozie if they follow the same interface and provide the implementation for those systems.
 
 ## Options 
 
