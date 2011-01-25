@@ -1,6 +1,6 @@
 ## Oozie Authentication Specification
 
-The goal of this document is to provide developer a tutorial of how to write your own authentication and configure in Oozie.
+The goal of this document is to provide developer a tutorial of how to write your own authentication and configure in the run-time environment of a Oozie server.
 
 ### 1. Oozie Authentication Definitions
 
