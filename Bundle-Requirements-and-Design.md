@@ -143,11 +143,11 @@ Prep	                 Running	               User START               	         
 
 Prep	                 Running	               Kick off time reaches	            SUBMIT children (START Bundle)	
 
-Prep	                 PrepPaused	       Pause time reaches	
-
-		START	
-Prep	PrepSuspended	SUSPEND	
-PrepPaused	Prep	RESET_PAUSE_TIME	
+Prep	                 PrepPaused	       Pause time reaches                   No Action	
+			
+Prep	                 PrepSuspended	       User SUSPEND	                    No Action
+-----------------------------------------------------------------------------------------------------------------
+PrepPaused	         Prep	              User RESET_PAUSE_TIME	            No Action
 PrepSuspended	Prep	RESUME	
 Running	Suspended	SUSPEND	SUSPEND children
 Running	Paused	Pause time	PAUSE children
