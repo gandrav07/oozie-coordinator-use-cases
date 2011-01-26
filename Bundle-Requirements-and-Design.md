@@ -133,10 +133,10 @@ This table will contain the information associated with coordinator jobs associa
 ```xml
         Transition	
 	
-From	                To	                  Trigger	                          Action
+From	                To	                  Trigger	                 Action on Children/Coordinator
 ==========================================================================================================================
 
-Start	                 Prep	                user SUBMIT
+Start	                 Prep	                user SUBMIT                        No Action
 
 Prep	                 Running	               User START               	            SUBMIT children (START Bundle)
 Prep	                 Running	               Kick off time reaches	            SUBMIT children (START Bundle)	
@@ -146,26 +146,26 @@ Prep	                 PrepSuspended	       User SUSPEND	                    No A
 PrepPaused	         Prep	              User RESET_PAUSE_TIME	            No Action
 PrepSuspended	         Prep	              User RESUME	                    No Action
 
-Running	                Suspended	     User SUSPEND	                 SUSPEND children/Coords
-Running	                Paused	             Pause time	reaches                  No Action
-Running	                Failed	             If SUBMIT of critical child fails	 KILL children
-Running	                RunningWithError     If SUBMIT non-critical child fails	 No Action
-Running	                Succeeded	    All children terminated
+Running	                Suspended	     User SUSPEND	                    SUSPEND children/Coords
+Running	                Paused	             Pause time	reaches                     No Action
+Running	                Failed	             If SUBMIT of critical child fails	    KILL children
+Running	                RunningWithError     If SUBMIT non-critical child fails	    No Action
+Running	                Succeeded	    All children terminated                 No Action
 
-RunningWithErrors	Failed	             If SUBMIT critical child fails	KILL children
-RunningWithErrors	DoneWithErrors	     All children terminated	  	No Action
-RunningWithErrors	SuspendedError	     User SUSPEND	                SUSPEND children
-RunningWithErrors	PausedError	     Pause time	reaches                 No Action
+RunningWithErrors	Failed	             If SUBMIT critical child fails	   KILL children
+RunningWithErrors	DoneWithErrors	     All children terminated	  	   No Action
+RunningWithErrors	SuspendedError	     User SUSPEND	                   SUSPEND children
+RunningWithErrors	PausedError	     Pause time	reaches                    No Action
 
-Paused	                Running	             User RESET_PAUSE_TIME               RESET_PAUSE_TIME to children	
-Paused	                Suspended	     User SUSPEND	                 SUSPEND children
-PausedError	        RunningWithErrors    User RESET_PAUSE_TIME               No Action	
-PausedError	        SuspendedError	     User SUSPEND	                 SUSPEND children
+Paused	                Running	             User RESET_PAUSE_TIME                 RESET_PAUSE_TIME to children	
+Paused	                Suspended	     User SUSPEND	                   SUSPEND children
+PausedError	        RunningWithErrors    User RESET_PAUSE_TIME                 No Action	
+PausedError	        SuspendedError	     User SUSPEND	                   SUSPEND children
 
-Suspended	        Running	             User RESUME	                        RESUME children
-SuspendedError	        RunningWithErrors    User RESUME   	                RESUME children
+Suspended	        Running	             User RESUME	                           RESUME children
+SuspendedError	        RunningWithErrors    User RESUME   	                   RESUME children
 	
-Any_State	        Killed	             User KILL	                        KILL children
+Any_State	        Killed	             User KILL	                           KILL children
 
 ```
 ## Operations
