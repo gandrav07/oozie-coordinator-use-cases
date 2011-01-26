@@ -133,8 +133,7 @@ This table will contain the information associated with coordinator jobs associa
 ```xml
         Transition	
 	
-From	····            To	                           Trigger	                          Action
-
+From	                To	                  Trigger	                          Action
 ==========================================================================================================================
 
 Start	                 Prep	                user SUBMIT
@@ -143,10 +142,9 @@ Prep	                 Running	               User START               	         
 Prep	                 Running	               Kick off time reaches	            SUBMIT children (START Bundle)	
 Prep	                 PrepPaused	       Pause time reaches                   No Action				
 Prep	                 PrepSuspended	       User SUSPEND	                    No Action
--------------------------------------------------------------------------------------------------------
+
 PrepPaused	         Prep	              User RESET_PAUSE_TIME	            No Action
 PrepSuspended	         Prep	              User RESUME	                    No Action
--------------------------------------------------------------------------------------------------------
 
 Running	                Suspended	     User SUSPEND	                 SUSPEND children/Coords
 Running	                Paused	             Pause time	reaches                  No Action
