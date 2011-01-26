@@ -225,8 +225,24 @@ Any_State	        Killed	             User KILL	                            KILL
 
 ### Bundle Rerun
 
-### BundleStatus Service
+### BundleStatusUpdateXCommand
+**How it is initiated**
+   
+* When a coordinator job (associated with a bundle) change it status.
 
+**Steps followed**
+
+* Find the corresponding bundle action record in the *BUNDLE_ACTION* table.
+* If the coordinator previous status doesn't match with bundle action current status
+   * Update bundle action status with coordinator new status 
+   * Decrement the pending count of bundle action.
+   * Update the coordinator job Id into bundle action table.
+* Otherwise
+   * Decrement the pending count of bundle action (without changing its status)
+   
+
+### Status Transition Service
+This service runs periodically to update the Bundle job status when all its children/actions are done.
 
 
 
