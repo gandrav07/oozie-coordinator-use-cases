@@ -130,7 +130,9 @@ This table will contain the information associated with coordinator jobs associa
 
 
 ## State Transition
+
 ```xml	
+
 From	                To	                  Trigger	                 Action on Children/Coordinator
 ==========================================================================================================================
 
@@ -168,6 +170,30 @@ Any_State	        Killed	             User KILL	                            KILL
 ```
 
 ## Operations
+
+### Bundle Submission
+**How it is initiated**
+   * Use submit a bundle
+
+**Steps followed**
+   * BundleSubmitXComamnd will authenticate the user request.
+   * BundleSubmitXComamnd will parse the bundle XML and verify against corresponding XSD file.
+   * BundleSubmitXComamnd will resolve (substitute) all variables referred in the XML.
+   * BundleSubmitXComamnd will verify that there is no duplicate coordinator name in bundle XML.
+   * BundleSubmitXComamnd will get a unique bundle id.
+   * BundleSubmitXComamnd will insert the bundle record into *Bundle* table with status PREP and pending *0*.
+   * BundleSubmitXComamnd will send back the bundle id to the user.
+  
+### Bundle Start
+ **How it is initiated**
+   * Bundle-start is initiated by any of the following ways (depending on whichever occurs first)
+      * If kick-off-time (defined in the bundle xml) reaches. The default value is NOW (i.e. start immediately)
+      * If user sends request to *START* the bundle.
+**Steps followed**
+   * BundleStartXComamnd will check if job status is PREP, otherwise oozie will fail the bundle-start request.
+   * BundleStartXComamnd  will insert a record  into BUNDLE_ACTION table for each coordinator job with status PREP and pending *1*.
+   * BundleStartXComamnd  will submit all coordinator job *asynchronously*. In other word, CoordSubmitXCommand will be queued .
+   * BundleStartXComamnd will update the status from PREP to RUNNING when all coordinators are started successfully.
 
 ### Bundle Kill
 
