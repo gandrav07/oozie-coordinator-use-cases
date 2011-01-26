@@ -176,9 +176,11 @@ Any_State	        Killed	             User KILL	                            KILL
 
 ### Bundle Submission
 **How it is initiated**
-   * Use submit a bundle
+   
+* User submits a bundle
 
 **Steps followed**
+
    * BundleSubmitXComamnd will authenticate the user request.
    * BundleSubmitXComamnd will parse the bundle XML and verify against corresponding XSD file.
    * BundleSubmitXComamnd will resolve (substitute) all variables referred in the XML.
