@@ -198,13 +198,25 @@ Any_State	        Killed	             User KILL	                            KILL
 
 **Steps followed**
 
+   * BundleSubmitXComamnd will authenticate the user request.
    * BundleStartXComamnd will check if job status is PREP, otherwise oozie will fail the bundle-start request.
    * BundleStartXComamnd  will insert a record  into BUNDLE_ACTION table for each coordinator job with status PREP and pending *1*.
    * BundleStartXComamnd  will submit all coordinator job *asynchronously*. In other word, CoordSubmitXCommand will be queued .
-   * BundleStartXComamnd will update the status from PREP to RUNNING when all coordinators are started successfully.
+   * BundleStartXComamnd will update the status from PREP to RUNNING.
 
 ### Bundle Kill
+**How it is initiated**
+   
+* User Kills a bundle
 
+**Steps followed**
+
+   * BundleKillXComamnd will authenticate the user request.
+   * BundleKillXComamnd will update the _bundle_ record with status KILLED and set pending to 1.
+   * BundleKillXComamnd  will kill all coordinator job *asynchronously*. In other word, CoordKillXCommand will be queued.
+   * BundleKillXComamnd  will update each related coordinator job with _status Killed and_ pending *1* in *BUNDLE_ACTION* table.
+  
+  
 ### Bundle Suspend
 
 ### Bundle Resume
@@ -212,6 +224,10 @@ Any_State	        Killed	             User KILL	                            KILL
 ### Bundle Pause/Unpause
 
 ### Bundle Rerun
+
+### BundleStatus Service
+
+
 
 
  
