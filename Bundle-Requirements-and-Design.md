@@ -131,40 +131,43 @@ This table will contain the information associated with coordinator jobs associa
 
 ## State Transition
 ```xml
-**         Transition	
+        Transition	
 	
-From	····            To	                           Trigger	                                             Action
+From	····            To	                           Trigger	                          Action
 
-=============================================================**
+==========================================================================================================================
 
 Start	                 Prep	                user SUBMIT
 
 Prep	                 Running	               User START               	            SUBMIT children (START Bundle)
-
 Prep	                 Running	               Kick off time reaches	            SUBMIT children (START Bundle)	
-
-Prep	                 PrepPaused	       Pause time reaches                   No Action	
-			
+Prep	                 PrepPaused	       Pause time reaches                   No Action				
 Prep	                 PrepSuspended	       User SUSPEND	                    No Action
------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------
 PrepPaused	         Prep	              User RESET_PAUSE_TIME	            No Action
-PrepSuspended	Prep	RESUME	
-Running	Suspended	SUSPEND	SUSPEND children
-Running	Paused	Pause time	PAUSE children
-Paused	Running	RESET_PAUSE_TIME	
-Paused	Suspended	SUSPEND	SUSPEND children
-Suspended	Running	RESUME	RESUME children
-Running	Failed	If SUBMIT critical child fails	KILL children
-Running	RunningWithErrors	If SUBMIT non-critical child fails	
-RunningWithErrors	Failed	If SUBMIT critical child fails	KILL children
-RunningWithErrors	DoneWithErrors	All children terminated	
-RunningWithErrors	SuspendedError	SUSPEND	SUSPEND children
-RunningWithErrors	PausedError	Pause time	PAUSE children
-PausedError	RunningWithErrors	RESET_PAUSE_TIME	
-PausedError	SuspendedError	SUSPEND	SUSPEND children
-SuspendedError	RunningWithErrors	RESUME	RESUME children
-Running	Succeeded	All children terminated	
-*	Killed	KILL	KILL children
+PrepSuspended	         Prep	              User RESUME	                    No Action
+-------------------------------------------------------------------------------------------------------
+
+Running	                Suspended	     User SUSPEND	                 SUSPEND children/Coords
+Running	                Paused	             Pause time	reaches                  No Action
+Running	                Failed	             If SUBMIT of critical child fails	 KILL children
+Running	                RunningWithError     If SUBMIT non-critical child fails	 No Action
+Running	                Succeeded	    All children terminated
+
+RunningWithErrors	Failed	             If SUBMIT critical child fails	KILL children
+RunningWithErrors	DoneWithErrors	     All children terminated	  	No Action
+RunningWithErrors	SuspendedError	     User SUSPEND	                SUSPEND children
+RunningWithErrors	PausedError	     Pause time	reaches                 No Action
+
+Paused	                Running	             User RESET_PAUSE_TIME               RESET_PAUSE_TIME to children	
+Paused	                Suspended	     User SUSPEND	                 SUSPEND children
+PausedError	        RunningWithErrors    User RESET_PAUSE_TIME               No Action	
+PausedError	        SuspendedError	     User SUSPEND	                 SUSPEND children
+
+Suspended	        Running	             User RESUME	                        RESUME children
+SuspendedError	        RunningWithErrors    User RESUME   	                RESUME children
+	
+Any_State	        Killed	             User KILL	                        KILL children
 
 ```
 ## Operations
