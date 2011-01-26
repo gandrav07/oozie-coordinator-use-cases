@@ -173,7 +173,7 @@ Any_State	        Killed	             User KILL	                            KILL
 **How it is initiated**
    * Use submit a bundle
 
-*Steps followed**
+**Steps followed**
    * BundleSubmitXComamnd will authenticate the user request.
    * BundleSubmitXComamnd will parse the bundle XML and verify against corresponding XSD file.
    * BundleSubmitXComamnd will resolve (substitute) all variables referred in the XML.
@@ -187,7 +187,7 @@ Any_State	        Killed	             User KILL	                            KILL
    * Bundle-start is initiated by any of the following ways (depending on whichever occurs first)
       * If kick-off-time (defined in the bundle xml) reaches. The default value is NOW (i.e. start immediately)
       * If user sends request to *START* the bundle.
-*Steps followed**
+**Steps followed**
    * BundleStartXComamnd will check if job status is PREP, otherwise oozie will fail the bundle-start request.
    * BundleStartXComamnd  will insert a record  into BUNDLE_ACTION table for each coordinator job with status PREP and pending *1*.
    * BundleStartXComamnd  will submit all coordinator job *asynchronously*. In other word, CoordSubmitXCommand will be queued .
