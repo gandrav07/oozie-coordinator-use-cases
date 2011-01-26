@@ -242,7 +242,9 @@ Any_State	        Killed	             User KILL	                            KILL
    
 
 ### Status Transition Service
-This service runs periodically to update the Bundle job status when all its children/actions are done.
+**How it is initiated**
+  
+* This service runs periodically to update the Bundle job status when all its children/actions are done.
 
 
 
