@@ -130,8 +130,11 @@ This table will contain the information associated with coordinator jobs associa
 
 
 ## State Transition
+```xml
 
-```xml	
+
+     Transition
+
 
 From	                To	                  Trigger	                 Action on Children/Coordinator
 ==========================================================================================================================
