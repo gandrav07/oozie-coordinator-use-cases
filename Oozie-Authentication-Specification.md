@@ -24,25 +24,31 @@ authentication, the provider returns an instance of AuthenticationToken which co
 
 ### 3. Server Authentication Implementation
 
-To write a new custom authentication, two classes have to be provided with overrided implementation. 
+To write a new custom authentication for server, two classes have to be provided with overrided implementation. 
 
 **1. Provider:** three methods are required to implement.    
-    * supports(): the method checks if its authentication mechanism supports the authentication information a request provided.
-
-    * getAuthenticationToken(): the method is called after supports() returns true and used to constructs the token from parameters in a request.
-
-    * authenticate(): the method is used to validate a token created above and rewrite it with new information if needed.
+    * supports() : the method checks if its authentication mechanism supports the authentication information a request provided.
+    * getAuthenticationToken() : the method is called after supports() returns true and used to constructs the token from parameters in a request. 
+    * authenticate() : the method is used to validate a token created above and rewrite it with new information if needed.
 
 **2. Token:** the instance contains the information for a authentication provider to use.
 
 For example,
 
-_SimpleAuthenticationHeadProvider_ implments the AuthenticationProvider to check if client has send a parameter (username) in the request.
+_SimpleAuthenticationHeadProvider_ implements the AuthenticationProvider to check if client has send a parameter (username) in the request.
 
 _SimpleAuthenticationToken_ extends AbstractAuthenticationToken to set the authentication flag to true and save client parameter in a instance of Token.
 
 ### 4. Client Authentication Implementation
 
+To write a new custom authentication for client, one class have to be provided with overrided implementation. 
+
+*HttpAuthenticator:* one methods is required to implement.    
+    * authenticate(conf, connection) : the method is used to do the client authentication and insert authentication information to http connection.
+
+For example,
+
+SimpleAuthenticator extends the HttpAuthenticator and send user name as http connection's request parameter.
 
 ### 5. Server Authentication Configuration
 
@@ -58,3 +64,41 @@ An authentication provider can be given in 'oozie-site.xml' for Oozie server. Th
 
 ### 6. Client Authentication Configuration
 
+To use an authenticator in client, a configuration "oozie.auth.map" has to be defined in client-site.xml or other user-specified client site xml. The value of "oozie.auth.map" specifies the mapping from key “XXX” to “org.apache.XXXauthenticator”. The format of "oozie.auth.map" is like "key1=value1,key2=value2". A key “XXX” is used at command line to specify which authenticator to use.
+
+For example,
+
+Default client-site.xml in Oozie Client can be found in oozie-client tar.
+
+```xml
+<configuration>
+
+    <!--  Oozie client authenticator -->
+    <property>
+        <name>oozie.auth.map</name>
+        <value>simple=org.apache.hadoop.http.authentication.client.simple.SimpleAuthenticator</value>
+        <description>
+            List of Oozie client authenticator (separated by commas).
+            The format is key=classname and key will be used in command line for -auth options.
+        </description>
+    </property>
+
+</configuration>
+```
+
+* Command line option "-clientsite" or environment variable "CLIENT_SITE" is used to specify the client site xml.
+
+### 7 Client Authentication CommandLine
+
+In command line, argument "-auth" has to be given to use user-defined authenticator. Default is SimpleAuthenticator if "-auth" is not given. A command line sample is:
+```text
+         Ex. oozie job –run –config map-red.properties –auth XXX -clientsite PATH_TO_CLIENT_SITE -Dkey1=value –Dkey2=value
+```
+The value of "-clientsite" or environment variable "CLIENT_SITE" is the path to the client site xml which contains client site configuration. The value of "-auth" is a key in the value "oozie.auth.map" of client site xml. When "-auth" is used, Oozie client looks for "-clientsite", or env variable "CLIENT_SITE" if "-clientsite" is not present.
+
+For example,
+
+To use simple authenticator from above example,
+```bash
+$ oozie job –run –config map-red.properties –auth simple -clientsite PATH_TO_CLIENT_SITE
+```
