@@ -4,11 +4,11 @@ The goal of this document is to provide developer a tutorial of how to write you
 
 ### 1. Oozie Authentication Definitions
 
-   * **Authenticator**: A client side class to authenticate user and send the authentication information to server along with each request.
+   **Authenticator**: A client side class to authenticate user and send the authentication information to server along with each request.
 
-   * **AuthenticationProvider**: A server side component to retrieve authentication token from http request and validate the token.
+   **AuthenticationProvider**: A server side component to retrieve authentication token from http request and validate the token.
 
-   * **AuthenticationToken**: A object contains authentication information for a request.
+   **AuthenticationToken**: A object contains authentication information for a request.
 
 ### 2. Oozie Authentication Introduction
 
