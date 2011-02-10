@@ -244,7 +244,11 @@ Any_State	        Killed	             User KILL	                            KILL
 ### Status Transition Service
 **How it is initiated**
   
-* This service runs periodically to update the Bundle job status when all its children/actions are done.
+* This service runs periodically to update the Bundle job status when all its children/actions are updated. All children (coordinator jobs) updates the Bundle Action entry when any status change happens. Status service periodically checks the table and update the corresponding Bundle job record with final status and/or pending flag.
+
+* For example, when oozie receives a bundle KILL command, it updates bundle job status to Kill and its pending flag to true. Then it queues Kill command for all related coordinator jobs. At the same time update the bundle action tables with pending flag = true. When a coordinator job (asynchronously) updates its status to KILL, it update the bundle action table by resetting the pending flag. Status service periodically monitor the bundle action table. If the pending flag of all the bundle action tables are reset, StatusService will update the bundle job table by reseting theat pending flag. 
+
+
 
 
 
