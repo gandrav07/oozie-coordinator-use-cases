@@ -456,7 +456,117 @@ public class testShell {
  <end name="end_1" />
 </workflow-app>
 ```
+### How to run Map-reduce job written using new Hadoop API? 
+Since new MR API (a.k.a. Hadoop 20 API) is neither stable nor supported, Hadoop team highly recommends not to use new MR API. Instead, Hadoop team recommends using the old API at least until Hadoop 0.22.x is released. Some more documents could be found at: Which MapReduce API to use. The reasons behind this recommendation are as follows
 
+   1. You are guaranteed needing to rewrite once the api changes. You would not be saving the cost of rewrite.
+   2. The api is not final and not mature. You would be taking the risk/cost of testing the code and then have it changed on you in the future.
+   3. There is a possibility of backward incompatibility as Hadoop 20 API is not approved. You would take the risk of figuring our backward incompatibility issues.
+   4. There would not be any support efforts if users bump into a problem. You would take the risk of maintaining unsupported code. 
+
+Having said that, there is a way of running MR jobs written using 20 API in Oozie. Basically, you have to
+
+    * change mapred.mapper.class to mapreduce.map.class
+    * change mapred.reducer.class to mapreduce.reduce.class
+    * add mapred.output.key.class
+    * add mapred.output.value.class
+    * and, include the following property into MR action configuration 
+```xml
+$ cat workflow.xml 
+<workflow-app xmlns="uri:oozie:workflow:0.1" name="newAPI-wc-wf">
+<!-- An example workflow.xml for the new MapReduce API. -->
+  <start to="wc"/>
+  <action name="wc">
+    <map-reduce xmlns="uri:oozie:workflow:0.1">
+      <job-tracker>${jobTracker}</job-tracker>
+      <name-node>${nameNode}</name-node>
+
+      <prepare>
+        <delete path="${PREFIX}/yoozie_test/output-mr20/mapRed20" />
+      </prepare>
+
+      <configuration>
+
+        <!-- These are important. -->
+        <property>
+          <name>mapred.mapper.new-api</name>
+          <value>true</value>
+        </property>
+        <property>
+          <name>mapred.reducer.new-api</name>
+          <value>true</value>
+        </property>
+
+	<!-- Use WordCount as example MapReduce job. -->
+        <property>
+           <name>mapreduce.map.class</name>
+           <value>org.apache.hadoop.examples.WordCount$TokenizerMapper</value>
+        </property>
+        <property>
+           <name>mapreduce.reduce.class</name>
+           <value>org.apache.hadoop.examples.WordCount$IntSumReducer</value>
+        </property>
+        <property>
+           <name>mapred.output.key.class</name>
+           <value>org.apache.hadoop.io.Text</value>
+        </property>
+        <property>
+           <name>mapred.output.value.class</name>
+           <value>org.apache.hadoop.io.IntWritable</value>
+        </property>
+
+        <!-- You need to provide values for the variables used here 
+        in your job.properties file. -->
+        <property>
+          <name>mapred.input.dir</name>
+          <value>${PREFIX}/yoozie_test/input-data</value>
+        </property>
+        <property>
+          <name>mapred.output.dir</name>
+          <value>${PREFIX}/yoozie_test/output-mr20/mapRed20</value>
+        </property>
+        <property>
+          <name>mapred.job.queue.name</name>
+          <value>${queueName}</value>
+        </property>
+      </configuration>
+    </map-reduce>
+    <ok to="end"/>
+    <error to="fail"/>
+  </action>
+  <kill name="fail">
+    <message>WordCount failed in step [${wf:lastErrorNode()}], error message[${wf:errorMessage(wf:lastErrorNode())}]</message>
+  </kill>
+  <end name="end"/>
+</workflow-app>
+```
+
+```xml
+
+# Adapt all values, especially the capitalized parts, then save as job.properties and run as:
+#  oozie job -run -config LOCAL_PATH_TO/job.properties
+
+$  cat job.properties
+#Hadoop mapred.job.tracker, adapt!
+jobTracker=HOSTNAME:8021
+
+#Hadoop fs.default.name, adapt!
+nameNode=hdfs://HOSTNAME:8020/
+
+#prefix of the HDFS path for input and output, adapt!
+PREFIX=hdfs://HOSTNAME:8020/user/PATH
+
+#HDFS path where you need to copy workflow.xml and lib/hadoop-examples.jar to
+oozie.wf.application.path=hdfs://HOSTNAME:8020/user/PATH/oozie-WordCount-NewAPI-app/
+
+#one of the values from Hadoop mapred.queue.names
+queueName=default
+
+# These may also be needed and adapted.
+mapreduce.jobtracker.kerberos.principal=mapred/_HOST@LOCALHOST
+dfs.namenode.kerberos.principal=hdfs/_HOST@LOCALHOST
+
+```
 
 ### Workflow Job to Create SLA events
 A workflow job could be configured to record the events required to evaluate SLA compliance.
