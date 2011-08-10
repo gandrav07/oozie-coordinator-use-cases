@@ -345,6 +345,62 @@ public class testShell {
 }
 ```
 
+Typical CmdRunner class could be:
+
+```java
+        import java.lang.*;
+ 	import java.io.*;
+ 	import java.util.*;
+ 	 // ================================================================
+ 	// CmdRunner is useful to run a command and wait until it's
+	// finished and returns.
+ 	// ================================================================
+ 	public class CmdRunner {
+ 	
+ 	String[] cmd = new String[3];
+ 	Object token;
+	
+ 	String BINPATH = "/usr/local/bin:/sbin:/usr/sbin:$PATH";
+ 	String HADOOPENV = "export HADOOP_HOME=.../hadoop/current;export HADOOP_CONF_DIR=...../conf/current;export JAVA_HOME=../share/yjava_jdk/java;";
+	
+ 	public CmdRunner(String cmdline) {
+ 	
+ 	cmd[0] = "/bin/bash";
+	cmd[1] = "-c";
+ 	//cmd[2] = HADOOPENV + "export PATH=" + BINPATH + ";" + cmdline;
+	cmd[2] = cmdline;
+	
+	
+	token = new Object();
+	}
+	
+ 	public Vector run() {
+ 	
+ 	Vector v = new Vector();
+ 	try {
+ 	String line;
+ 	Process p = Runtime.getRuntime().exec(cmd);
+ 	BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+ 	BufferedReader error = new BufferedReader(new InputStreamReader(p.getErrorStream()));
+ 	ReadErrorStream re = new ReadErrorStream(error, token, v);
+	re.run();
+	
+ 	while ((line = input.readLine()) != null) {
+ 	synchronized (token) {
+ 	v.add(line);
+ 	}
+ 	}
+ 	input.close();
+ 	}
+ 	catch (Exception e) {
+ 	    e.printStackTrace();
+	}
+	
+	return v;
+	}
+ 	} 
+```
+
 ### Multiple Actions
 
 ```xml
