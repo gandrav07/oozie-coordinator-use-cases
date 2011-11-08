@@ -161,7 +161,7 @@ $ cat coordinator.xml
    * Each of these daily jobs is dependent on the last 24 hours of *hourly data from the input1 feed*. Within the *input-events* section, you will notice that the _data-in_ block specifies the _start_ and _end_ instances for the input data dependencies. 
       * ${coord:current(0)} is a function that returns the current instance of the _input1_ dataset
       * ${coord:current(-23)} is a function that returns the 23rd oldest instance of the _input1_ dataset
-      * For the Coordinator Job that is materialized on *2009-02-01T00:00Z*, the *start-instance* will be 2009-02-01T00:00Z and the *end-instance* will be 2009-01-31T01:00Z (23 hours earlier)
+      * For the Coordinator Job that is materialized on *2009-02-01T00:00Z*, the *start-instance* will be 2009-01-31T01:00Z (23 hours earlier) and the *end-instance* will be 2009-02-01T00:00Z.
 
 ```xml
    <input-events>
