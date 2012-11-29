@@ -1,5 +1,4 @@
 # Bundle Requirements and Design
-test
 # Introduction
 Bundle is a higher-level oozie abstraction that will batch a set of coordinator applications. The user will be able to start/stop/suspend/resume/rerun in the bundle level resulting a better control.
 
