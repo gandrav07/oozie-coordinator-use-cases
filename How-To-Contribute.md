@@ -4,7 +4,7 @@ So, you want to help us make Oozie better?  Our development model is, essentiall
 
 ### What to consider before contributing
 
-Most likely than not, your interest in contributing to Oozie comes from the need to scratch a proverbial itch. Of course, the best way to scratch your own itch is to let somebody else do that. Thus before doing anything else, consider:
+Most likely than not, your interest in contributing to Oozie comes from the need to scratch a proverbial itch. Of course, the best way to scratch your own itch is to let somebody else do that. Thus before [promoting](http://www.hostgatorpromocodez.com) anything else, consider:
 
 1. subscribing yourself to the [oozie-users](http://groups.yahoo.com/group/Oozie-users/join) mailing list and make 
     sure you get all the feeds for Oozie from the GitHub
