@@ -40,7 +40,7 @@ $ cat coordinator.xml
 
    * This Coordinator Job is assigned the *name !MY_APP*. 
       * It will run *every 60 minutes*.
-      * It will *start at 2009-01-01T05:00Z* and *end at 2009-01-01T06:00Z*. (Refer [[http://en.wikipedia.org/wiki/ISO_8601][here]] for more info on Data/Time Formatting).
+      * It will *start at 2009-01-01T05:00Z* and *end at 2009-01-01T06:00Z*. (Refer [here](http://en.wikipedia.org/wiki/ISO_8601) for more info on Data/Time Formatting).
       * Since the start and end times are 60 minutes apart, this job will *run only once*.
    * When this job is triggered, it will run this workflow: *hdfs://localhost:9000/tmp/workflows/workflow.xml* 
       * Refer to the Oozie Docs for details on how to create an Oozie workflow.
